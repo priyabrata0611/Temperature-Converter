@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Temperature Converter</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      h1{
+        text-align:center;
+        color: gold;
+  text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+      }
+      body {
+        background-image: url("https://wallpapercave.com/wp/wp8403192.jpg");
+        display: grid;
+        place-content: center;
+      }
+      main {
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 2px 2px 5px rgb(5, 86, 139);
+        padding: 2rem;
+      }
+      #form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        align-items: center;
+      }
+      .convert {
+        all: unset;
+        color: white;
+        background-color: green;
+        font-weight: bold;
+        padding: 0.25rem 0.5rem;
+        cursor: pointer;
+      }
+      input,
+      select {
+        margin-block-end: 1rem;
+        font-size: 1.15rem;
+      }
+      .label {
+        color: #555;
+        font-size: 0.75rem;
+      }
+      label {
+        gap: 0.5rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .result {
+        font-size: 1.1rem;
+        font-weight: bolder;
+      }
+      footer{
+        text-align:center;
+         color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px red;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Temperature Converter Website</h1>
+    <main>
+      <form id="form">
+        <label class="label"
+          >Degrees
+          <input
+            type="text"
+            id="degrees"
+            pattern="[0-9\.]+"
+            required
+            title="Numbers Only"
+          />
+        </label>
+        <label class="label"
+          >Type
+          <select name="type" id="type" required>
+            <option value="c" selected>celsius</option>
+            <option value="f">Fahrenheit</option>
+            <option value="k">Kelvin</option>
+          </select>
+        </label>
+        <button class="convert">Convert</button>
+      </form>
+      <p class="label">Result</p>
+      <p class="result" id="resultOne"></p>
+      <p class="result" id="resultTwo"></p>
+    </main>
+    <footer>Developed by Priyabrata Behera</footer>
+    <script>
+      const form = document.querySelector("#form");
+      console.log("HEloo1");
+      form.addEventListener("submit", (e) => {
+        console.log("HEloo2");
+        e.preventDefault();
+        console.log("HEloo3");
+        const resultOne = document.querySelector("#resultOne");
+        const resultTwo = document.querySelector("#resultTwo");
+        let type = document.querySelector("#type").value;
+        let degrees = document.querySelector("#degrees").value;
+        degrees = parseFloat(degrees);
+        if (type === "c") {
+          console.log("HEloo4");
+          console.log(convertToFahrenheit(degrees, "c"));
+          console.log(convertToKelvin(degrees, "c"));
+          resultOne.innerText = convertToFahrenheit(degrees, "c");
+          resultTwo.innerText = convertToKelvin(degrees, "c");
+        } else if (type === "f") {
+          console.log("HEloo4");
+          console.log(convertTocelsius(degrees, "c"));
+          console.log(convertToKelvin(degrees, "c"));
+          resultOne.innerText = convertTocelsius(degrees, "f");
+          resultTwo.innerText = convertToKelvin(degrees, "f");
+        } else {
+          console.log("HEloo4");
+          console.log(convertTocelsius(degrees, "c"));
+          console.log(convertToFahrenheit(degrees, "c"));
+          resultOne.innerText = convertTocelsius(degrees, "k");
+          resultTwo.innerText = convertToFahrenheit(degrees, "k");
+        }
+      });
+      const convertTocelsius = (value, from) => {
+        if (from === "f") {
+          return `${((value - 32) * (5 / 9)).toFixed(2)} C`;
+        } else {
+          return `${(value - 273.15).toFixed(2)} C`;
+        }
+      };
+      const convertToFahrenheit = (value, from) => {
+        if (from === "c") {
+          return `${(value * 1.8 + 32).toFixed(2)} F`;
+        } else {
+          return `${((value * 9) / 5 - 459.67).toFixed(2)} F`;
+        }
+      };
+      const convertToKelvin = (value, from) => {
+        if (from === "f") {
+          return `${((value + 459.67) * (5 / 9)).toFixed(2)} K`;
+        } else {
+          return `${(value + 273.15).toFixed(2)} K`;
+        }
+      };
+    </script>
+  </body>
+</html>
